@@ -2,7 +2,7 @@ import os
 import io
 import base64
 from rembg import remove
-from flask import Flask, render_template, request, redirect, url_for, jsonify
+from flask import Flask, render_template, request, jsonify
 from PIL import Image
 
 app = Flask(__name__)
@@ -11,7 +11,6 @@ def remove_background(input_image_path):
     input_image = Image.open(input_image_path)
     output_image = remove(input_image)
     
-    # Convertir la imagen procesada a base64
     buffered = io.BytesIO()
     output_image.save(buffered, format="PNG")
     encoded_img = base64.b64encode(buffered.getvalue()).decode('utf-8')
