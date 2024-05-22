@@ -1,0 +1,15 @@
+version: '3'
+
+services:
+  rem:
+    build: .
+    ports:
+      - "5000:5000"
+    volumes:
+      - outputs:/outputs
+      - uploads:/uploads
+      - templates:/templates
+volumes:
+  outputs:
+  uploads:
+  templates:

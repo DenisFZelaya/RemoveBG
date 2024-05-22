@@ -1,0 +1,8 @@
+En la terminal de esta carpeta ejecutar el comando
+
+Requisitos:
+- Docker
+
+docker-compose up -d
+
+Esto montara el servicio en el puerto 5000

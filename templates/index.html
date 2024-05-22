@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -71,8 +71,14 @@
                     var response = JSON.parse(xhr.responseText);
                     var processedImage = document.getElementById('processed-image');
                     var downloadLink = document.getElementById('download-link');
-                    processedImage.src = response.output_path;
-                    downloadLink.href = response.output_path;
+
+                    // Mostrar la imagen procesada
+                    console.log(response.output_path)
+                    processedImage.src = 'data:image/png;base64,' + response.output_path;
+
+                    // Enlace de descarga
+                    downloadLink.href = 'data:image/png;base64,' + response.output_path;
+
                     document.getElementById('loading').style.display = 'none';
                     document.getElementById('result').style.display = 'block';
                 } else {

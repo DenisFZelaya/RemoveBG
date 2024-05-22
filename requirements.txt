@@ -1,0 +1,5 @@
+Flask==3.0.0
+Werkzeug==3.0.1
+rembg==2.0.56
+numba==0.57.1
+
