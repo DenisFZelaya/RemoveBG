@@ -1,21 +1,15 @@
 import os
 import io
 import base64
-from rembg import remove
+
 from flask import Flask, render_template, request, jsonify
 from PIL import Image
+import modules.openCV as openCVModules
+import modules.removeBG as remBG
 
 app = Flask(__name__)
 
-def remove_background(input_image_path):
-    input_image = Image.open(input_image_path)
-    output_image = remove(input_image)
-    
-    buffered = io.BytesIO()
-    output_image.save(buffered, format="PNG")
-    encoded_img = base64.b64encode(buffered.getvalue()).decode('utf-8')
 
-    return encoded_img
 
 @app.route('/')
 def index():
@@ -23,6 +17,9 @@ def index():
 
 @app.route('/process', methods=['POST'])
 def process():
+    method = request.args.get('method')
+    print("method: " + method)
+
     if 'file' not in request.files:
         return jsonify({'error': 'No file part'})
     file = request.files['file']
@@ -34,8 +31,16 @@ def process():
 
         input_path = "uploads/input_image.jpg"
         file.save(input_path)
-        output_path = remove_background(input_path)
-        return jsonify({'output_path': output_path})
+
+        output_path = ""
+
+        if method == "binary":
+            output_path = openCVModules.BinaryImg(input_path)
+
+        if method == "rem_bg":
+            output_path = remBG.remove_background(input_path)
+
+        return jsonify({'output_path': output_path })
 
 if __name__ == '__main__':
     app.run(debug=True)

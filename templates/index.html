@@ -5,10 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Removerdor de Fondo Casero!</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="app.css" rel="stylesheet">
 </head>
 <body>
     <div class="container mt-5">
-        <h1 class="mb-4">Removerdor de Fondo Casero!</h1>
+        <h1 class="mb-4">Funciones Python!</h1>
         <hr />
         <div class="row">
            <div class="col-md-6">
@@ -17,6 +18,13 @@
                     <label for="file" class="form-label">Cargar Imagen:</label>
                     <input type="file" class="form-control" id="file" name="file" accept="image/*" onchange="previewImage(event)">
                     <img src="" alt="Preview" id="preview-image" class="img-fluid mt-2" style="display: none;">
+                </div>
+                <div class="mb-3">
+                    <label for="select-method" class="form-label">Seleccionar Opción:</label>
+                    <select class="form-control" id="select-method" name="select-method">
+                        <option value="binary">Binarizar (Digitalizar documento)</option>
+                        <option value="rem_bg">Remover Fondo</option>
+                    </select>
                 </div>
                 <button type="submit" class="btn btn-primary">Procesar</button>
             </form>
@@ -65,7 +73,9 @@
             var formData = new FormData(this);
             var xhr = new XMLHttpRequest();
 
-            xhr.open('POST', '/process', true);
+            var method = document.getElementById("select-method")?.value
+
+            xhr.open('POST', '/process?method=' + method, true);
             xhr.onload = function () {
                 if (xhr.status === 200) {
                     var response = JSON.parse(xhr.responseText);
