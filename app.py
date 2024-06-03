@@ -39,6 +39,15 @@ def process():
 
         if method == "rem_bg":
             output_path = remBG.remove_background(input_path)
+            
+        if method == "perspective_transformation":
+            output_path = openCVModules.PerpectiveTransformation(input_path)
+            
+        if method == "laplacian":
+            output_path = openCVModules.Laplacian(input_path)
+            
+        if method == "canny":
+            output_path = openCVModules.Canny(input_path)
 
         return jsonify({'output_path': output_path })
 
